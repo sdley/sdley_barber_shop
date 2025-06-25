@@ -2,7 +2,7 @@ name: sdley_barber_shop
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -51,16 +51,26 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
+linter:
+  # The linter is a tool that analyzes Dart code to catch common mistakes and
+  # enforce style conventions. The linter is configured by the `analysis_options.yaml`
+  # file located at the root of your package. See that file for information about
+  # deactivating specific lint rules and activating additional ones.
+  # For more information about the linter, see https://dart.dev/tools/linter
+  # For more information about the analysis options file, see
+  # https://dart.dev/tools/analysis-options
+  rules:
+    prefer_const_constructors: false
+    prefer_const_literals_to_create_immutables: false
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
