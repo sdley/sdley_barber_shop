@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/pages/home.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -19,18 +20,26 @@ class _OnboardingState extends State<Onboarding> {
             // Image.asset(name: 'assets/images/onboarding.png', fit: BoxFit.cover),
             Image.asset("assets/images/barber.png"),
             SizedBox(height: 50.0),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              decoration: BoxDecoration(
-                color: Color(0xFFdf711a),
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Text(
-                "Get a stylish Haircut",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home()),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                decoration: BoxDecoration(
+                  color: Color(0xFFdf711a),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Text(
+                  "Get a stylish Haircut",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

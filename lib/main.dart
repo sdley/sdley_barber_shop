@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/onboarding.dart';
 
 void main() {
@@ -18,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Home(),
+      // home: Home(),
+      home: Onboarding(),
     );
   }
 }
