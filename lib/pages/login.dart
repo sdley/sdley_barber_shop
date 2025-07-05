@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/pages/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -137,18 +138,26 @@ class _LoginState extends State<Login> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          color: Color(0xFF621d3c),
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Signup()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            color: Color(0xFF621d3c),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
