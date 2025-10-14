@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "294445146708",
+    "project_id": "sdley-barber-shop",
+    "storage_bucket": "sdley-barber-shop.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294445146708:android:a9d157122380f1040683c1",
+        "android_client_info": {
+          "package_name": "com.example.sdley_barber_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMVlyR8Uq1G9Vj4Wcg4R2fgy_qZy8UrUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
