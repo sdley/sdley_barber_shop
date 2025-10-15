@@ -4,6 +4,7 @@ import 'package:random_string/random_string.dart';
 import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/login.dart';
 import 'package:sdley_barber_shop/services/database.dart';
+import 'package:sdley_barber_shop/services/shared_pref.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -27,6 +28,12 @@ class _SignupState extends State<Signup> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email!, password: password!);
         String id = randomAlphaNumeric(10);
+        await SharedPreferencesHelper.saveUserId(id);
+        await SharedPreferencesHelper.saveUserEmail(email!);
+        await SharedPreferencesHelper.saveUserName(name!);
+        await SharedPreferencesHelper.saveUserAvatar(
+          "../../assets/images/neutral-pp.png",
+        );
 
         Map<String, dynamic> userInfoMap = {
           "Name": nameController.text,
