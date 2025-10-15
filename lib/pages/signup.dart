@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/login.dart';
+import 'package:sdley_barber_shop/services/database.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -24,9 +26,19 @@ class _SignupState extends State<Signup> {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email!, password: password!);
+        String id = randomAlphaNumeric(10);
+
+        Map<String, dynamic> userInfoMap = {
+          "Name": nameController.text,
+          "Email": emailController.text,
+          "Id": id,
+          "Image": "../../assets/images/neutral-pp.png",
+        };
+        // Push to database
+        await DatabaseServices().addUserDetails(userInfoMap, id);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.green,
+            backgroundColor: Color(0xFFe29452),
             content: Text(
               "Account created successfully",
               style: TextStyle(fontSize: 20.0),
