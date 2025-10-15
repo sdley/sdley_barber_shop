@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sdley_barber_shop/pages/signup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       // home: Home(),
-      home: Onboarding(),
+      home: Home(),
     );
   }
 }

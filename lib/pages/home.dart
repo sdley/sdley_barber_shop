@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sdley_barber_shop/pages/booking.dart';
+import 'package:sdley_barber_shop/services/shared_pref.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,6 +10,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String? name, image;
+
+  getDataFromSharedPreferences() async {
+    name = await SharedPreferencesHelper.getUserName();
+    image = await SharedPreferencesHelper.getUserAvatar();
+    setState(() {});
+  }
+
+  getOnLoad() async {
+    await getDataFromSharedPreferences();
+    setState(() {
+      name = name;
+      image = image;
+    });
+  }
+
+  @override
+  void initState() {
+    getOnLoad();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +56,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Text(
-                      "Souleymane DIALLO",
+                      name!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -45,7 +68,7 @@ class _HomeState extends State<Home> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(30.0),
                   child: Image.asset(
-                    "assets/images/profile.png",
+                    "assets/images/neutral-pp.png",
                     width: 60.0,
                     height: 60.0,
                     fit: BoxFit.cover,
