@@ -32,14 +32,15 @@ class _SignupState extends State<Signup> {
         await SharedPreferencesHelper.saveUserEmail(email!);
         await SharedPreferencesHelper.saveUserName(name!);
         await SharedPreferencesHelper.saveUserAvatar(
-          "assets/images/neutral-pp.png",
+          "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png",
         );
 
         Map<String, dynamic> userInfoMap = {
           "Name": nameController.text,
           "Email": emailController.text,
           "Id": id,
-          "Image": "assets/images/neutral-pp.png",
+          "Image":
+              "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png",
         };
         // Push to database
         await DatabaseServices().addUserDetails(userInfoMap, id);
