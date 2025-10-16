@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/services/database.dart';
 
 class BookingAdmin extends StatefulWidget {
   const BookingAdmin({super.key});
@@ -8,24 +9,34 @@ class BookingAdmin extends StatefulWidget {
 }
 
 class _BookingAdminState extends State<BookingAdmin> {
+  Stream? bookingsStream;
+
+  getOnLoad() async {
+    bookingsStream = await DatabaseServices().getAppointments();
+    setState(() {});
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                "All Bookings",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            Material(
+  void initState() {
+    super.initState();
+    getOnLoad();
+  }
+
+  Widget bookingList() {
+    return StreamBuilder(
+      stream: bookingsStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return Center(child: Text("No bookings available"));
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            var booking = snapshot.data!.docs[index];
+            return Material(
               elevation: 8.0,
               borderRadius: BorderRadius.circular(20.0),
               child: Container(
@@ -48,8 +59,8 @@ class _BookingAdminState extends State<BookingAdmin> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(60.0),
-                          child: Image.asset(
-                            "assets/images/cutting.png",
+                          child: Image.network(
+                            booking['image'],
                             height: 80.0,
                             width: 80.0,
                           ),
@@ -58,7 +69,7 @@ class _BookingAdminState extends State<BookingAdmin> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Service: Haircut",
+                      "Service: " + booking['service'],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -67,7 +78,7 @@ class _BookingAdminState extends State<BookingAdmin> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Name: Souleymane DIALLO",
+                      "Name: " + booking['name'],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -76,7 +87,7 @@ class _BookingAdminState extends State<BookingAdmin> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Date: 2025-10-17",
+                      "Date: " + booking['date'],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -85,7 +96,7 @@ class _BookingAdminState extends State<BookingAdmin> {
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      "Time: 10:00 AM",
+                      "Time: " + booking['time'],
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -116,7 +127,32 @@ class _BookingAdminState extends State<BookingAdmin> {
                   ],
                 ),
               ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                "All Bookings",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
+            SizedBox(height: 20.0),
+            Expanded(child: bookingList()),
           ],
         ),
       ),

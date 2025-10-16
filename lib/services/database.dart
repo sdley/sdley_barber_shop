@@ -35,4 +35,8 @@ class DatabaseServices {
         .doc(id)
         .set(userInfoMap);
   }
+
+  Future<Stream<QuerySnapshot>> getAppointments() async {
+    return FirebaseFirestore.instance.collection("appointments").snapshots();
+  }
 }
