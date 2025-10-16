@@ -32,111 +32,116 @@ class _BookingAdminState extends State<BookingAdmin> {
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return Center(child: Text("No bookings available"));
         }
-        return ListView.builder(
+        return ListView.separated(
+          padding: EdgeInsets.only(bottom: 20.0, top: 0.0),
           itemCount: snapshot.data!.docs.length,
+          separatorBuilder: (context, index) => SizedBox(height: 16.0),
           itemBuilder: (context, index) {
             var booking = snapshot.data!.docs[index];
-            return Material(
-              elevation: 8.0,
-              borderRadius: BorderRadius.circular(20.0),
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFb91635),
-                      Color(0xFF621d3c),
-                      Color(0xFF311937),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(60.0),
-                          child: Image.network(
-                            booking['image'],
-                            height: 80.0,
-                            width: 80.0,
-                          ),
-                        ),
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 0.0),
+              child: Material(
+                elevation: 8.0,
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFb91635),
+                        Color(0xFF621d3c),
+                        Color(0xFF311937),
                       ],
                     ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Service: " + booking['service'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Name: " + booking['name'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Date: " + booking['date'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      "Time: " + booking['time'],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                      width: MediaQuery.of(context).size.width,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(60.0),
+                            child: Image.network(
+                              booking['image'],
+                              height: 80.0,
+                              width: 80.0,
+                            ),
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        "Service: " + booking['service'],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        onPressed: () async {
-                          await DatabaseServices()
-                              .deleteAppointment(booking.id)
-                              .then((value) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      "Booking deleted successfully",
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        "Name: " + booking['name'],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        "Date: " + booking['date'],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                        "Time: " + booking['time'],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await DatabaseServices()
+                                .deleteAppointment(booking.id)
+                                .then((value) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "Booking deleted successfully",
+                                      ),
                                     ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Text(
-                          "Mark as Completed",
-                          style: TextStyle(
-                            color: Color(0xFFb91635),
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                                  );
+                                });
+                          },
+                          child: Text(
+                            "Mark as Completed",
+                            style: TextStyle(
+                              color: Color(0xFFb91635),
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );
