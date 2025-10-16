@@ -113,7 +113,19 @@ class _BookingAdminState extends State<BookingAdmin> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await DatabaseServices()
+                              .deleteAppointment(booking.id)
+                              .then((value) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Booking deleted successfully",
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
                         child: Text(
                           "Mark as Completed",
                           style: TextStyle(

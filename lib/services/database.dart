@@ -39,4 +39,11 @@ class DatabaseServices {
   Future<Stream<QuerySnapshot>> getAppointments() async {
     return FirebaseFirestore.instance.collection("appointments").snapshots();
   }
+
+  deleteAppointment(String id) async {
+    return await FirebaseFirestore.instance
+        .collection("appointments")
+        .doc(id)
+        .delete();
+  }
 }
