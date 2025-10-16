@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/pages/forgot_password.dart';
 import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/signup.dart';
 
@@ -143,17 +144,27 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                     ),
                     SizedBox(height: 30.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            color: Color(0xFF311937),
-                            fontSize: 16.0,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPassword(),
                           ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              color: Color(0xFF311937),
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 40.0),
                     GestureDetector(
