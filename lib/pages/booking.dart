@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sdley_barber_shop/services/database.dart';
+import 'package:sdley_barber_shop/services/shared_pref.dart';
 
 class Booking extends StatefulWidget {
   final String service;
@@ -9,6 +11,30 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  String? name, image, email;
+
+  getDataFromSharedPreferences() async {
+    name = await SharedPreferencesHelper.getUserName();
+    image = await SharedPreferencesHelper.getUserAvatar();
+    email = await SharedPreferencesHelper.getUserEmail();
+    setState(() {});
+  }
+
+  getOnLoad() async {
+    await getDataFromSharedPreferences();
+    setState(() {
+      name = name;
+      image = image;
+      email = email;
+    });
+  }
+
+  @override
+  void initState() {
+    getOnLoad();
+    super.initState();
+  }
+
   DateTime _selectedDate = DateTime.now();
   int _currentYear = DateTime.now().year;
 
@@ -183,7 +209,33 @@ class _BookingState extends State<Booking> {
             ),
             SizedBox(height: 30.0),
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                Map<String, dynamic> appointment = {
+                  "service": widget.service,
+                  "date":
+                      "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
+                  "time": _selectedTime.format(
+                    context,
+                  ), // Format time as a string
+                  "name": name,
+                  "email": email,
+                  "image": image,
+                };
+                // Save appointment to database
+                await DatabaseServices().addAppointment(appointment).then((
+                  value,
+                ) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Color(0xFFe29452),
+                      content: Text(
+                        "Your appointment has been booked successfully",
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  );
+                });
+              },
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),

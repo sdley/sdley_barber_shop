@@ -23,11 +23,10 @@ class DatabaseServices {
     return [];
   }
 
-  Future<void> addAppointment(
-    String uid,
-    Map<String, dynamic> appointment,
-  ) async {
-    // Implementation for adding an appointment for a user
+  Future addAppointment(Map<String, dynamic> appointment) async {
+    return await FirebaseFirestore.instance
+        .collection("appointments")
+        .add(appointment);
   }
 
   Future addUserDetails(Map<String, dynamic> userInfoMap, String id) async {
