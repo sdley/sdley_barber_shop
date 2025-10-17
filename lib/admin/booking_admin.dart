@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sdley_barber_shop/services/database.dart';
+import 'package:sdley_barber_shop/pages/home.dart';
 
 class BookingAdmin extends StatefulWidget {
   const BookingAdmin({super.key});
@@ -158,17 +159,48 @@ class _BookingAdminState extends State<BookingAdmin> {
         margin: EdgeInsets.only(top: 50.0, left: 20.0, right: 20.0),
         child: Column(
           children: [
-            Center(
-              child: Text(
-                "All Bookings",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+            Column(
+              children: [
+                Center(
+                  child: Text(
+                    "All Bookings",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(height: 12.0),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                    ),
+                    child: Text(
+                      'Back to Home',
+                      style: TextStyle(
+                        color: Color(0xFFb91635),
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+              ],
             ),
-            SizedBox(height: 20.0),
             Expanded(child: bookingList()),
           ],
         ),
