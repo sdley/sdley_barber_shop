@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
-import 'package:sdley_barber_shop/pages/home.dart';
 import 'package:sdley_barber_shop/pages/login.dart';
+import 'package:sdley_barber_shop/pages/onboarding.dart';
 import 'package:sdley_barber_shop/services/database.dart';
 import 'package:sdley_barber_shop/services/shared_pref.dart';
 
@@ -55,7 +55,7 @@ class _SignupState extends State<Signup> {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => Onboarding()),
         );
       } on FirebaseAuthException catch (e) {
         // ScaffoldMessenger.of(context).showSnackBar(
