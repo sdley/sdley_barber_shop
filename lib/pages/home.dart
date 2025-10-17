@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sdley_barber_shop/pages/booking.dart';
 import 'package:sdley_barber_shop/services/shared_pref.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sdley_barber_shop/admin/admin_login.dart';
+import 'package:sdley_barber_shop/pages/login.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -65,13 +68,70 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Image.network(
-                    image!,
-                    width: 60.0,
-                    height: 60.0,
-                    fit: BoxFit.cover,
+                PopupMenuButton<String>(
+                  onSelected: (value) async {
+                    if (value == 'admin') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AdminLogin()),
+                      );
+                    } else if (value == 'logout') {
+                      // Sign out and navigate to login
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                    }
+                  },
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  elevation: 8,
+                  itemBuilder:
+                      (context) => [
+                        PopupMenuItem(
+                          value: 'admin',
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.admin_panel_settings,
+                                color: Color(0xFFb91635),
+                              ),
+                              SizedBox(width: 10.0),
+                              Text(
+                                'Admin Login',
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'logout',
+                          child: Row(
+                            children: [
+                              Icon(Icons.logout, color: Colors.redAccent),
+                              SizedBox(width: 10.0),
+                              Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Image.network(
+                      image!,
+                      width: 60.0,
+                      height: 60.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],
