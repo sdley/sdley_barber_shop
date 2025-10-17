@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(30.0),
                   child: Image.network(
-                    "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png",
+                    image!,
                     width: 60.0,
                     height: 60.0,
                     fit: BoxFit.cover,
